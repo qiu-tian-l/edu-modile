@@ -1,0 +1,61 @@
+<template>
+  <div class="lesson-video">
+    <van-nav-bar
+      title="视频"
+      left-text="返回"
+      left-arrow
+      @click-left="onClickLeft"
+    />
+    <div class="video-container"></div>
+  </div>
+</template>
+
+<script>
+import { getVideoPlayInfo } from '@/services/course'
+
+export default {
+  name: 'LessonVideo',
+  props: {
+    lessonId: {
+      type: [Number, String],
+      required: true
+    }
+  },
+  created () {
+    this.loadPlayer()
+  },
+  methods: {
+    onClickLeft () {
+      this.$router.go(-1)
+    },
+    async loadPlayer () {
+      const { data } = await getVideoPlayInfo({
+        lessonId: this.lessonId
+      })
+      console.log(data)
+      // const player = new window.Aliplayer({
+      //   id: 'video-container',
+      //   vid: '12',
+      //   playauth: '12',
+      //   qualitySort: 'asc',
+      //   format: 'mp4',
+      //   mediaType: 'video',
+      //   width: '100%',
+      //   height: '500px',
+      //   autoplay: true,
+      //   isLive: false,
+      //   rePlay: false,
+      //   playsinline: true,
+      //   preload: true,
+      //   controlBarVisibility: 'hover',
+      //   useH5Prism: true
+      // }, function (player) {
+      //     console.log("The player is created")
+      //   }
+      // )
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped></style>
